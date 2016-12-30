@@ -1,0 +1,746 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<c2eventsheet>
+    <!--All the 'name' attributes are ignored by Construct 2 - they are there for readability only.-->
+    <name>Event sheet 1</name>
+    <events>
+        <variable constant="0" name="TrackNum" sid="7868328364810968" static="0" type="number">1</variable>
+        <variable constant="0" name="Hue" sid="5901624221785844" static="0" type="number">0</variable>
+        <variable constant="0" name="NightMode" sid="252770972973169" static="0" type="number">0</variable>
+        <variable constant="0" name="IsPaused" sid="599472672214348" static="0" type="number">0</variable>
+        <event-group description="" sid="3180203523703844" title="Init">
+            <sub-events>
+                <event-group description="" sid="7856989651028681" title="Array Init">
+                    <sub-events>
+                        <event-block sid="7713063167636555">
+                            <conditions>
+                                <condition id="-2" name="On start of layout" sid="4223563832001505" type="System" />
+                            </conditions>
+                            <actions>
+                                <action id="1" name="Request project file" sid="969950856007516" type="AJAX">
+                                    <param id="0" name="Tag">&quot;ListOfMusic&quot;</param>
+                                    <param id="1" name="File">MusicList.json</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="766183553621376">
+                            <conditions>
+                                <condition id="0" name="On completed" sid="222259756835077" type="AJAX">
+                                    <param id="0" name="Tag">&quot;ListOFMusic&quot;</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="11" name="Load" sid="832990137597195" type="Array">
+                                    <param id="0" name="JSON">AJAX.LastData</param>
+                                </action>
+                                <action id="7" name="Play (by name)" sid="6375780135906877" type="Audio">
+                                    <param id="0" name="Folder">1</param>
+                                    <param id="1" name="Audio file name">Array.At(TrackNum)</param>
+                                    <param id="3" name="Loop">0</param>
+                                    <param id="4" name="Volume">0</param>
+                                    <param id="2" name="Tag (optional)">&quot;OhManDude&quot;</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-group>
+                <variable constant="0" name="AnalyserBinCount" sid="1377454722644162" static="0" type="number">0</variable>
+                <event-block sid="5433728616572091">
+                    <conditions>
+                        <condition id="-2" name="On start of layout" sid="3780317631101049" type="System" />
+                    </conditions>
+                    <actions>
+                        <action id="20" name="Add analyser effect" sid="4630180618419028" type="Audio">
+                            <param id="0" name="Tag">&quot;Ohmandude&quot;</param>
+                            <param id="1" name="FFT size">1024</param>
+                            <param id="2" name="Smoothing">0.2</param>
+                        </action>
+                        <action id="-9" name="Destroy" sid="5506951745549034" type="TiledBackground2" />
+                        <action id="-9" name="Set value" sid="6546587580702761" type="System">
+                            <param id="0" name="Variable">AnalyserBinCount</param>
+                            <param id="1" name="Value">Audio.AnalyserFreqBinCount(&quot;Ohmandude&quot;, 0)</param>
+                        </action>
+                        <action id="0" name="Set cursor style" sid="975356053327168" type="Mouse">
+                            <param id="0" name="Cursor style">7</param>
+                        </action>
+                    </actions>
+                    <sub-events>
+                        <event-block sid="6395830122637085">
+                            <conditions>
+                                <condition id="-12" name="Repeat" sid="5690190537500122" type="System">
+                                    <param id="0" name="Count">AnalyserBinCount</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-3" name="Create object" sid="6885800335150926" type="System">
+                                    <param id="0" name="Object to create">TiledBackground2</param>
+                                    <param id="1" name="Layer">0</param>
+                                    <param id="2" name="X">loopindex * WindowWidth / AnalyserBinCount</param>
+                                    <param id="3" name="Y">0</param>
+                                </action>
+                                <action id="-10" name="Set value" sid="7101503774976795" type="TiledBackground2">
+                                    <param id="0" name="Instance variable">Bin</param>
+                                    <param id="1" name="Value">loopindex</param>
+                                </action>
+                                <action id="-7" name="Set size" sid="4265161647976869" type="TiledBackground2">
+                                    <param id="0" name="Width">WindowWidth / AnalyserBinCount</param>
+                                    <param id="1" name="Height">180</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="497968078082526">
+                            <conditions>
+                                <condition id="-27" inverted="1" name="Effects are supported" sid="980429478113602" type="System" />
+                            </conditions>
+                            <actions>
+                                <action id="-15" name="Set visible" sid="837814676491133" type="SpriteFont2">
+                                    <param id="0" name="Visibility">1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-block>
+            </sub-events>
+        </event-group>
+        <event-group description="" sid="1055504698739695" title="Visualiser">
+            <sub-events>
+                <event-group description="" sid="546552585307811" title="Scrolling">
+                    <sub-events>
+                        <event-block sid="743928318183839">
+                            <conditions>
+                                <condition id="-1" name="Every tick" sid="758159508836804" type="System" />
+                            </conditions>
+                            <actions>
+                                <action id="-1" name="Set X" sid="876653002287750" type="TiledBackground">
+                                    <param id="0" name="X">TiledBackground.X+(dt*12)</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="271776068162445">
+                            <conditions>
+                                <condition id="-1" name="Compare X" sid="700315676897081" type="TiledBackground">
+                                    <param id="0" name="Comparison">5</param>
+                                    <param id="1" name="X co-ordinate">0</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-1" name="Set X" sid="702334196894935" type="TiledBackground">
+                                    <param id="0" name="X">-320</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-group>
+                <event-group description="" sid="8026908306731797" title="Hue Cycling">
+                    <sub-events>
+                        <event-block sid="5554913348486471">
+                            <conditions>
+                                <condition id="-6" name="Every X seconds" sid="6301519093917493" type="System">
+                                    <param id="0" name="Interval (seconds)">0.1</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-32" name="Set layer effect parameter" sid="354440100622154" type="System">
+                                    <param id="0" name="Layer">0</param>
+                                    <param id="1" name="Effect">&quot;AdjustHSL&quot;</param>
+                                    <param id="2" name="Parameter index">0</param>
+                                    <param id="3" name="Value">Hue</param>
+                                </action>
+                            </actions>
+                            <sub-events>
+                                <event-block sid="834219961880084">
+                                    <conditions>
+                                        <condition id="-14" name="Compare variable" sid="968824121182681" type="System">
+                                            <param id="0" name="Variable">NightMode</param>
+                                            <param id="1" name="Comparison">0</param>
+                                            <param id="2" name="Value">1</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions />
+                                    <sub-events>
+                                        <event-block sid="611872669385342">
+                                            <conditions>
+                                                <condition id="-14" name="Compare variable" sid="798384763807364" type="System">
+                                                    <param id="0" name="Variable">Hue</param>
+                                                    <param id="1" name="Comparison">3</param>
+                                                    <param id="2" name="Value">-85</param>
+                                                </condition>
+                                            </conditions>
+                                            <actions>
+                                                <action id="-9" name="Set value" sid="406230796293675" type="System">
+                                                    <param id="0" name="Variable">Hue</param>
+                                                    <param id="1" name="Value">15</param>
+                                                </action>
+                                            </actions>
+                                        </event-block>
+                                        <event-block sid="417803404312291">
+                                            <conditions>
+                                                <condition id="-14" name="Compare variable" sid="204838949285359" type="System">
+                                                    <param id="0" name="Variable">Hue</param>
+                                                    <param id="1" name="Comparison">5</param>
+                                                    <param id="2" name="Value">20</param>
+                                                </condition>
+                                            </conditions>
+                                            <actions>
+                                                <action id="-9" name="Set value" sid="165311662182787" type="System">
+                                                    <param id="0" name="Variable">Hue</param>
+                                                    <param id="1" name="Value">-80</param>
+                                                </action>
+                                            </actions>
+                                        </event-block>
+                                        <event-block sid="468417673167852">
+                                            <conditions>
+                                                <condition id="-22" name="Else" sid="459533042800434" type="System" />
+                                            </conditions>
+                                            <actions />
+                                            <sub-events>
+                                                <event-block sid="732622292754125">
+                                                    <conditions>
+                                                        <condition id="-14" name="Compare variable" sid="110454469930111" type="System">
+                                                            <param id="0" name="Variable">Hue</param>
+                                                            <param id="1" name="Comparison">2</param>
+                                                            <param id="2" name="Value">0</param>
+                                                        </condition>
+                                                    </conditions>
+                                                    <actions>
+                                                        <action id="-9" name="Set value" sid="433556416243791" type="System">
+                                                            <param id="0" name="Variable">Hue</param>
+                                                            <param id="1" name="Value">Hue-0.2</param>
+                                                        </action>
+                                                    </actions>
+                                                </event-block>
+                                                <event-block sid="838491258897729">
+                                                    <conditions>
+                                                        <condition id="-22" name="Else" sid="527878796503690" type="System" />
+                                                    </conditions>
+                                                    <actions>
+                                                        <action id="-9" name="Set value" sid="802886183393627" type="System">
+                                                            <param id="0" name="Variable">Hue</param>
+                                                            <param id="1" name="Value">Hue+0.2</param>
+                                                        </action>
+                                                    </actions>
+                                                </event-block>
+                                            </sub-events>
+                                        </event-block>
+                                    </sub-events>
+                                </event-block>
+                                <event-block sid="979148461401845">
+                                    <conditions>
+                                        <condition id="-22" name="Else" sid="952631335427100" type="System" />
+                                    </conditions>
+                                    <actions />
+                                    <sub-events>
+                                        <event-block sid="4624654259308116">
+                                            <conditions>
+                                                <condition id="-14" name="Compare variable" sid="8741671656240438" type="System">
+                                                    <param id="0" name="Variable">Hue</param>
+                                                    <param id="1" name="Comparison">5</param>
+                                                    <param id="2" name="Value">100</param>
+                                                </condition>
+                                            </conditions>
+                                            <actions>
+                                                <action id="-9" name="Set value" sid="2201203952723911" type="System">
+                                                    <param id="0" name="Variable">Hue</param>
+                                                    <param id="1" name="Value">-100</param>
+                                                </action>
+                                            </actions>
+                                        </event-block>
+                                        <event-block sid="9361036088950993">
+                                            <conditions>
+                                                <condition id="-22" name="Else" sid="1202534204535752" type="System" />
+                                            </conditions>
+                                            <actions>
+                                                <action id="-9" name="Set value" sid="8280127312507336" type="System">
+                                                    <param id="0" name="Variable">Hue</param>
+                                                    <param id="1" name="Value">Hue+0.2</param>
+                                                </action>
+                                            </actions>
+                                        </event-block>
+                                    </sub-events>
+                                </event-block>
+                            </sub-events>
+                        </event-block>
+                    </sub-events>
+                </event-group>
+                <event-group description="" sid="9082488645518123" title="Light Effect">
+                    <sub-events>
+                        <variable constant="0" name="FadeToValue" sid="255707850547459" static="1" type="number">120</variable>
+                        <variable constant="0" name="CurrentValue" sid="9401630858137796" static="1" type="number">120</variable>
+                        <event-block sid="2275506193563709">
+                            <conditions>
+                                <condition id="-1" name="Every tick" sid="3758840968088754" type="System" />
+                                <condition id="3" inverted="1" name="Is silent" sid="5665365948678075" type="Audio" />
+                            </conditions>
+                            <actions />
+                            <sub-events>
+                                <event-block sid="473450767628362">
+                                    <conditions>
+                                        <condition id="-14" name="Compare variable" sid="943845319977230" type="System">
+                                            <param id="0" name="Variable">NightMode</param>
+                                            <param id="1" name="Comparison">0</param>
+                                            <param id="2" name="Value">1</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions>
+                                        <action id="-9" name="Set value" sid="645741199042283" type="System">
+                                            <param id="0" name="Variable">CurrentValue</param>
+                                            <param id="1" name="Value">lerp(CurrentValue, FadeToValue, 0.01)</param>
+                                        </action>
+                                        <action id="-32" name="Set layer effect parameter" sid="983859038955090" type="System">
+                                            <param id="0" name="Layer">0</param>
+                                            <param id="1" name="Effect">&quot;AdjustHSL&quot;</param>
+                                            <param id="2" name="Parameter index">2</param>
+                                            <param id="3" name="Value">min(CurrentValue, 100)</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                                <event-block sid="753220158623788">
+                                    <conditions>
+                                        <condition id="-22" name="Else" sid="120696603208309" type="System" />
+                                    </conditions>
+                                    <actions>
+                                        <action id="-9" name="Set value" sid="7967487037776541" type="System">
+                                            <param id="0" name="Variable">CurrentValue</param>
+                                            <param id="1" name="Value">lerp(CurrentValue, FadeToValue, 0.03)</param>
+                                        </action>
+                                        <action id="-32" name="Set layer effect parameter" sid="5635408737872419" type="System">
+                                            <param id="0" name="Layer">0</param>
+                                            <param id="1" name="Effect">&quot;AdjustHSL&quot;</param>
+                                            <param id="2" name="Parameter index">2</param>
+                                            <param id="3" name="Value">CurrentValue</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                            </sub-events>
+                        </event-block>
+                        <event-block sid="4706971444699762">
+                            <conditions>
+                                <condition id="-22" name="Else" sid="4290587305136009" type="System" />
+                            </conditions>
+                            <actions />
+                            <sub-events>
+                                <event-block sid="769928979152039">
+                                    <conditions>
+                                        <condition id="-14" name="Compare variable" sid="895179353733316" type="System">
+                                            <param id="0" name="Variable">NightMode</param>
+                                            <param id="1" name="Comparison">0</param>
+                                            <param id="2" name="Value">1</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions>
+                                        <action id="-32" name="Set layer effect parameter" sid="233890308560810" type="System">
+                                            <param id="0" name="Layer">0</param>
+                                            <param id="1" name="Effect">&quot;AdjustHSL&quot;</param>
+                                            <param id="2" name="Parameter index">2</param>
+                                            <param id="3" name="Value">100</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                                <event-block sid="728823085975934">
+                                    <conditions>
+                                        <condition id="-22" name="Else" sid="105821040471392" type="System" />
+                                    </conditions>
+                                    <actions>
+                                        <action id="-32" name="Set layer effect parameter" sid="3598068433543673" type="System">
+                                            <param id="0" name="Layer">0</param>
+                                            <param id="1" name="Effect">&quot;AdjustHSL&quot;</param>
+                                            <param id="2" name="Parameter index">2</param>
+                                            <param id="3" name="Value">120</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                            </sub-events>
+                        </event-block>
+                        <event-block sid="8589256147385476">
+                            <conditions>
+                                <condition id="-6" name="Every X seconds" sid="5301626294262088" type="System">
+                                    <param id="0" name="Interval (seconds)">0.1</param>
+                                </condition>
+                                <condition id="3" inverted="1" name="Is silent" sid="2524772643370427" type="Audio" />
+                                <condition id="-14" name="Compare variable" sid="573172717325479" type="System">
+                                    <param id="0" name="Variable">IsPaused</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Value">0</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-9" name="Set value" sid="8051309345100066" type="System">
+                                    <param id="0" name="Variable">FadeToValue</param>
+                                    <param id="1" name="Value">round(150 + Audio.AnalyserRMSLevel(&quot;Ohmandude&quot;, 0) * 2)</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="5527734457727117">
+                            <conditions>
+                                <condition id="-14" name="Compare variable" sid="2562359782852059" type="System">
+                                    <param id="0" name="Variable">CurrentValue</param>
+                                    <param id="1" name="Comparison">3</param>
+                                    <param id="2" name="Value">60</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-9" name="Set value" sid="2497918826133583" type="System">
+                                    <param id="0" name="Variable">CurrentValue</param>
+                                    <param id="1" name="Value">60</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-group>
+                <event-group description="" sid="1925094601720408" title="Spectrum Bars">
+                    <sub-events>
+                        <event-block sid="9931407482655784">
+                            <conditions>
+                                <condition id="-11" name="For Each" sid="8463419563693913" type="System">
+                                    <param id="0" name="Object">TiledBackground2</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-2" name="Set Y" sid="2983859856482219" type="TiledBackground2">
+                                    <param id="0" name="Y">0 - Audio.AnalyserFreqBinAt(&quot;Ohmandude&quot;, 0, TiledBackground2.Bin) * 2</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-group>
+            </sub-events>
+        </event-group>
+        <event-group description="" sid="5486012656839811" title="Input">
+            <sub-events>
+                <event-block any="1" sid="9703667968316907">
+                    <conditions>
+                        <condition id="8" name="On mouse wheel" sid="3403543203519363" type="Mouse">
+                            <param id="0" name="Direction">0</param>
+                        </condition>
+                        <condition id="2" name="Key is down" sid="307983280128144" type="Keyboard">
+                            <param id="0" name="Key">40 (Down arrow)</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="3" name="Set volume" sid="7215975472769453" type="Audio">
+                            <param id="0" name="Tag">&quot;OhMandude&quot;</param>
+                            <param id="1" name="dB">Audio.Volume(&quot;OhMandude&quot;)-1</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block any="1" sid="8862837096928779">
+                    <conditions>
+                        <condition id="8" name="On mouse wheel" sid="4625356551066333" type="Mouse">
+                            <param id="0" name="Direction">1</param>
+                        </condition>
+                        <condition id="2" name="Key is down" sid="425859537772429" type="Keyboard">
+                            <param id="0" name="Key">38 (Up arrow)</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="3" name="Set volume" sid="8223098864928009" type="Audio">
+                            <param id="0" name="Tag">&quot;OhMandude&quot;</param>
+                            <param id="1" name="dB">Audio.Volume(&quot;OhMandude&quot;)+1</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="4167162739971897">
+                    <conditions>
+                        <condition id="0" name="On key pressed" sid="2532957926139401" type="Keyboard">
+                            <param id="0" name="Key">77 (M)</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="8" name="Set silent" sid="5904205824522546" type="Audio">
+                            <param id="0" name="Mode">2</param>
+                        </action>
+                    </actions>
+                    <sub-events>
+                        <event-block sid="886164381404214">
+                            <conditions>
+                                <condition id="-14" name="Compare variable" sid="301672139187717" type="System">
+                                    <param id="0" name="Variable">IsPaused</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Value">1</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="22" name="Set paused" sid="727181899428921" type="Audio">
+                                    <param id="0" name="Tag">&quot;OhMandude&quot;</param>
+                                    <param id="1" name="State">1</param>
+                                </action>
+                                <action id="-9" name="Set value" sid="458309743099039" type="System">
+                                    <param id="0" name="Variable">IsPaused</param>
+                                    <param id="1" name="Value">0</param>
+                                </action>
+                            </actions>
+                            <sub-events>
+                                <event-block sid="369947019944910">
+                                    <conditions>
+                                        <condition disabled="1" id="4" name="Is any playing" sid="305186959979691" type="Audio" />
+                                    </conditions>
+                                    <actions>
+                                        <action id="7" name="Play (by name)" sid="601134544243697" type="Audio">
+                                            <param id="0" name="Folder">1</param>
+                                            <param id="1" name="Audio file name">Array.At(TrackNum)</param>
+                                            <param id="3" name="Loop">0</param>
+                                            <param id="4" name="Volume">0</param>
+                                            <param id="2" name="Tag (optional)">&quot;OhManDude&quot;</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                            </sub-events>
+                        </event-block>
+                        <event-block sid="592555069197824">
+                            <conditions>
+                                <condition id="-22" name="Else" sid="780302854580546" type="System" />
+                            </conditions>
+                            <actions>
+                                <action id="22" name="Set paused" sid="183999335433274" type="Audio">
+                                    <param id="0" name="Tag">&quot;OhMandude&quot;</param>
+                                    <param id="1" name="State">0</param>
+                                </action>
+                                <action id="-9" name="Set value" sid="963279792798044" type="System">
+                                    <param id="0" name="Variable">IsPaused</param>
+                                    <param id="1" name="Value">1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-block>
+                <variable constant="0" name="IsHiRes" sid="6417068069180259" static="1" type="number">1</variable>
+                <event-block sid="7179283889563915">
+                    <conditions>
+                        <condition id="0" name="On key pressed" sid="218571840649987" type="Keyboard">
+                            <param id="0" name="Key">80 (P)</param>
+                        </condition>
+                    </conditions>
+                    <actions />
+                    <sub-events>
+                        <event-block sid="2566757468012194">
+                            <conditions>
+                                <condition id="-14" name="Compare variable" sid="2498981807436685" type="System">
+                                    <param id="0" name="Variable">IsHiRes</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Value">1</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-40" name="Set fullscreen scaling" sid="9686768682094937" type="System">
+                                    <param id="0" name="Fullscreen scaling">0</param>
+                                </action>
+                                <action id="-9" name="Set value" sid="3841377582689079" type="System">
+                                    <param id="0" name="Variable">IsHiRes</param>
+                                    <param id="1" name="Value">0</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="1281183719093044">
+                            <conditions>
+                                <condition id="-22" name="Else" sid="777637309419409" type="System" />
+                            </conditions>
+                            <actions>
+                                <action id="-40" name="Set fullscreen scaling" sid="4511532731829661" type="System">
+                                    <param id="0" name="Fullscreen scaling">1</param>
+                                </action>
+                                <action id="-9" name="Set value" sid="4368868557584295" type="System">
+                                    <param id="0" name="Variable">IsHiRes</param>
+                                    <param id="1" name="Value">1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-block>
+                <variable constant="0" name="IsTextVisible" sid="5541972205696891" static="1" type="number">1</variable>
+                <event-block sid="1637092388455764">
+                    <conditions>
+                        <condition id="0" name="On key pressed" sid="1916309426867194" type="Keyboard">
+                            <param id="0" name="Key">84 (T)</param>
+                        </condition>
+                    </conditions>
+                    <actions />
+                    <sub-events>
+                        <event-block sid="8321617661856621">
+                            <conditions>
+                                <condition id="-14" name="Compare variable" sid="579882253370198" type="System">
+                                    <param id="0" name="Variable">IsTextVisible</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Value">1</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-9" name="Set value" sid="6492028437177641" type="System">
+                                    <param id="0" name="Variable">IsTextVisible</param>
+                                    <param id="1" name="Value">0</param>
+                                </action>
+                                <action id="-3" name="Create object" sid="322653359666619" type="System">
+                                    <param id="0" name="Object to create">SpriteFont2</param>
+                                    <param id="1" name="Layer">1</param>
+                                    <param id="2" name="X">0</param>
+                                    <param id="3" name="Y">44</param>
+                                </action>
+                                <action id="0" name="Set text" sid="151649721233440" type="SpriteFont2">
+                                    <param id="0" name="Text">&quot;*~~~~~~~~~~~~~~~~~~~~~~~~~*&#x0D;&#x0A;&#x0D;&#x0A;Base project created by:&#x0D;&#x0A;Amber Rosie&#x0D;&#x0A;&#x0D;&#x0A;With great help by:&#x0D;&#x0A;Aliceif&#x0D;&#x0A;&#x0D;&#x0A;*~~~~~~~~~~~~~~~~~~~~~~~~~*&quot;</param>
+                                </action>
+                                <action id="7" name="Set horizontal alignment" sid="315282581528707" type="SpriteFont2">
+                                    <param id="0" name="Horizontal alignment">1</param>
+                                </action>
+                                <action id="-7" name="Set size" sid="598215139192146" type="SpriteFont2">
+                                    <param id="0" name="Width">320</param>
+                                    <param id="1" name="Height">180</param>
+                                </action>
+                                <action id="-15" name="Set visible" sid="716713418851839" type="SpriteFont2">
+                                    <param id="0" name="Visibility">1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="2466519017843621">
+                            <conditions>
+                                <condition id="-22" name="Else" sid="2514104794951809" type="System" />
+                            </conditions>
+                            <actions>
+                                <action id="-9" name="Destroy" sid="431190364438225" type="SpriteFont2" />
+                                <action id="-9" name="Set value" sid="4383536166128583" type="System">
+                                    <param id="0" name="Variable">IsTextVisible</param>
+                                    <param id="1" name="Value">1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-block>
+                <event-block sid="528725008894305">
+                    <conditions>
+                        <condition id="0" name="On key pressed" sid="551398471084227" type="Keyboard">
+                            <param id="0" name="Key">78 (N)</param>
+                        </condition>
+                    </conditions>
+                    <actions />
+                    <sub-events>
+                        <event-block sid="843991630590920">
+                            <conditions>
+                                <condition id="-14" name="Compare variable" sid="946825272230327" type="System">
+                                    <param id="0" name="Variable">NightMode</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Value">1</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="1" name="Set blend mode" sid="186016948611167" type="TiledBackground2">
+                                    <param id="0" name="Blend mode">2</param>
+                                </action>
+                                <action id="-16" name="Set opacity" sid="206788968843434" type="TiledBackground2">
+                                    <param id="0" name="Opacity">40</param>
+                                </action>
+                                <action id="-9" name="Set value" sid="571758213650497" type="System">
+                                    <param id="0" name="Variable">Hue</param>
+                                    <param id="1" name="Value">0</param>
+                                </action>
+                                <action id="-9" name="Set value" sid="732014370832405" type="System">
+                                    <param id="0" name="Variable">NightMode</param>
+                                    <param id="1" name="Value">0</param>
+                                </action>
+                                <action id="1" name="Set rate" sid="423533724599232" type="Particles">
+                                    <param id="0" name="Rate">0</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="266620013128022">
+                            <conditions>
+                                <condition id="-22" name="Else" sid="521872829886657" type="System" />
+                            </conditions>
+                            <actions>
+                                <action id="1" name="Set blend mode" sid="852328150332033" type="TiledBackground2">
+                                    <param id="0" name="Blend mode">1</param>
+                                </action>
+                                <action id="-16" name="Set opacity" sid="771793795652167" type="TiledBackground2">
+                                    <param id="0" name="Opacity">15</param>
+                                </action>
+                                <action id="-9" name="Set value" sid="974283791944963" type="System">
+                                    <param id="0" name="Variable">Hue</param>
+                                    <param id="1" name="Value">20</param>
+                                </action>
+                                <action id="-9" name="Set value" sid="960897726718700" type="System">
+                                    <param id="0" name="Variable">NightMode</param>
+                                    <param id="1" name="Value">1</param>
+                                </action>
+                                <action id="1" name="Set rate" sid="438988105603346" type="Particles">
+                                    <param id="0" name="Rate">10</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-block>
+            </sub-events>
+        </event-group>
+        <event-group description="" sid="7324484618538464" title="Changing Tracks">
+            <sub-events>
+                <event-block sid="1243659044194932">
+                    <conditions>
+                        <condition id="0" name="On ended" sid="32665589405425" type="Audio">
+                            <param id="0" name="Tag">&quot;OhManDude&quot;</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-9" name="Set value" sid="9134107740848776" type="System">
+                            <param id="0" name="Variable">TrackNum</param>
+                            <param id="1" name="Value">TrackNum = Array.Width-1 ? 1 : TrackNum + 1</param>
+                        </action>
+                        <action id="7" name="Play (by name)" sid="171170859164868" type="Audio">
+                            <param id="0" name="Folder">1</param>
+                            <param id="1" name="Audio file name">Array.At(TrackNum)</param>
+                            <param id="3" name="Loop">0</param>
+                            <param id="4" name="Volume">0</param>
+                            <param id="2" name="Tag (optional)">&quot;OhManDude&quot;</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block any="1" sid="7243747732231098">
+                    <conditions>
+                        <condition id="0" name="On key pressed" sid="4889911578766011" type="Keyboard">
+                            <param id="0" name="Key">34 (Num 3)</param>
+                        </condition>
+                        <condition id="0" name="On key pressed" sid="379748662109691" type="Keyboard">
+                            <param id="0" name="Key">39 (Right arrow)</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-9" name="Set value" sid="223829092343958" type="System">
+                            <param id="0" name="Variable">TrackNum</param>
+                            <param id="1" name="Value">TrackNum = Array.Width-1 ? 1 : TrackNum + 1</param>
+                        </action>
+                        <action id="6" name="Stop" sid="7780893019913774" type="Audio">
+                            <param id="0" name="Tag">&quot;OhMandude&quot;</param>
+                        </action>
+                        <action id="7" name="Play (by name)" sid="4303963325176506" type="Audio">
+                            <param id="0" name="Folder">1</param>
+                            <param id="1" name="Audio file name">Array.At(TrackNum)</param>
+                            <param id="3" name="Loop">0</param>
+                            <param id="4" name="Volume">0</param>
+                            <param id="2" name="Tag (optional)">&quot;OhManDude&quot;</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block any="1" sid="7742160465328421">
+                    <conditions>
+                        <condition id="0" name="On key pressed" sid="3408894122881886" type="Keyboard">
+                            <param id="0" name="Key">33 (Num 9)</param>
+                        </condition>
+                        <condition id="0" name="On key pressed" sid="824080664718249" type="Keyboard">
+                            <param id="0" name="Key">37 (Left arrow)</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-9" name="Set value" sid="5818512064757983" type="System">
+                            <param id="0" name="Variable">TrackNum</param>
+                            <param id="1" name="Value">TrackNum = 1 ? Array.Width-1 : TrackNum - 1</param>
+                        </action>
+                        <action id="6" name="Stop" sid="545233455198593" type="Audio">
+                            <param id="0" name="Tag">&quot;OhMandude&quot;</param>
+                        </action>
+                        <action id="7" name="Play (by name)" sid="9972836304158935" type="Audio">
+                            <param id="0" name="Folder">1</param>
+                            <param id="1" name="Audio file name">Array.At(TrackNum)</param>
+                            <param id="3" name="Loop">0</param>
+                            <param id="4" name="Volume">0</param>
+                            <param id="2" name="Tag (optional)">&quot;OhManDude&quot;</param>
+                        </action>
+                    </actions>
+                </event-block>
+            </sub-events>
+        </event-group>
+    </events>
+</c2eventsheet>

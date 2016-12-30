@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<c2project>
+    <name>Earthbound Visualiser</name>
+    <description></description>
+    <version>2.0.0.0</version>
+    <author></author>
+    <author-email></author-email>
+    <author-website>http://</author-website>
+    <app-id>com.mycompany.myapp</app-id>
+    <unique-id>57jvjn4y02pu</unique-id>
+    <saved-with-version>23300</saved-with-version>
+    <used-plugins>
+        <plugin author="Scirra" id="AJAX" version="1">AJAX</plugin>
+        <plugin author="Scirra" id="Arr" version="1">Array</plugin>
+        <plugin author="Scirra" id="Audio" version="1">Audio</plugin>
+        <plugin author="Scirra" id="Keyboard" version="1">Keyboard</plugin>
+        <plugin author="Scirra" id="Mouse" version="1">Mouse</plugin>
+        <plugin author="Scirra" id="Particles" version="1">Particles</plugin>
+        <plugin author="Scirra" id="Spritefont2" version="1">Sprite font</plugin>
+        <plugin author="Scirra" id="TiledBg" version="1">Tiled Background</plugin>
+    </used-plugins>
+    <used-behaviors>
+        <behavior author="Scirra" id="Persist" version="1">Persist</behavior>
+    </used-behaviors>
+    <used-effects>
+        <effect author="Scirra" id="hsladjust">Adjust HSL</effect>
+        <effect author="Viktor Korsun" id="water">Water</effect>
+    </used-effects>
+    <configurations>
+        <configuration exporter-descname="HTML5" exporter-id="html5" name="HTML5" />
+    </configurations>
+    <window-size>
+        <width>320</width>
+        <height>180</height>
+    </window-size>
+    <pixel-rounding>0</pixel-rounding>
+    <preview-effects>1</preview-effects>
+    <use-loader-layout>0</use-loader-layout>
+    <configuration-settings>
+        <prop name="Clear background">No</prop>
+        <prop name="Downscaling">Medium quality</prop>
+        <prop name="Enable WebGL">On</prop>
+        <prop name="Fullscreen in browser">Scale inner</prop>
+        <prop name="Fullscreen scaling">High quality</prop>
+        <prop name="Loader style">Construct 2 splash</prop>
+        <prop name="Orientations">Landscape</prop>
+        <prop name="Pause on unfocus">No</prop>
+        <prop name="Physics engine">Box2D asm.js</prop>
+        <prop name="Preload sounds">Yes</prop>
+        <prop name="Preview browser">Chrome</prop>
+        <prop name="Sampling">Point</prop>
+        <prop name="Use high-DPI display">Yes</prop>
+    </configuration-settings>
+    <object-folder>
+        <object-type name="TiledBackground" sid="8639552988447867">
+            <plugin id="TiledBg" />
+            <texture original-source="D:\Graphics Gale images\Tesrting\Motherthing0000.png" />
+        </object-type>
+        <object-type name="Audio" sid="2797832605689645">
+            <plugin id="Audio" />
+        </object-type>
+        <object-type name="Keyboard" sid="217390745233856">
+            <plugin id="Keyboard" />
+        </object-type>
+        <object-type name="Mouse" sid="6589243639683548">
+            <plugin id="Mouse" />
+        </object-type>
+        <object-type name="TiledBackground2" sid="4108211279417626">
+            <plugin id="TiledBg" />
+            <instance-variables>
+                <instance-variable name="Bin" sid="6326079592032051" type="number" />
+            </instance-variables>
+            <behaviors>
+                <behavior-type name="Persist" sid="6016342396879629">
+                    <behavior id="Persist" />
+                </behavior-type>
+            </behaviors>
+            <texture original-source="D:\Graphics Gale images\Tesrting\Motherthing0005.png" />
+        </object-type>
+        <object-type global="1" name="Array" sid="8099609885382455">
+            <plugin id="Arr" />
+        </object-type>
+        <object-type name="SpriteFont2" sid="221747417509009">
+            <plugin id="Spritefont2" />
+            <texture original-source="D:\Graphics Gale images\BreakDaRulesOutlinedTransparent.png" />
+        </object-type>
+        <object-type name="AJAX" sid="701896606617123">
+            <plugin id="AJAX" />
+        </object-type>
+        <object-type name="Particles" sid="167448011799730">
+            <plugin id="Particles" />
+            <texture original-source="D:\Dev Stuff\construct 2 projects\Tesrting\Shine.png" />
+        </object-type>
+    </object-folder>
+    <families />
+    <layout-folder>
+        <layout>Layout 1.xml</layout>
+    </layout-folder>
+    <event-folder>
+        <event-sheet>Event sheet 1.xml</event-sheet>
+    </event-folder>
+    <global-instances>
+        <global-instance type="Audio" uid="10">
+            <properties>
+                <timescale-audio>Off</timescale-audio>
+                <saveload>All</saveload>
+                <play-in-background>Yes</play-in-background>
+                <positioned-audio></positioned-audio>
+                <panning-model>HRTF</panning-model>
+                <distance-model>Inverse</distance-model>
+                <listener-z-height>600</listener-z-height>
+                <reference-distance>600</reference-distance>
+                <maximum-distance>10000</maximum-distance>
+                <roll-off-factor>1</roll-off-factor>
+            </properties>
+        </global-instance>
+        <global-instance type="Keyboard" uid="11" />
+        <global-instance type="Mouse" uid="14" />
+        <global-instance type="AJAX" uid="17" />
+    </global-instances>
+    <sounds-folder />
+    <music-folder>
+        <file name="Guitar_Gentle.m4a" />
+        <file name="Guitar_Gentle.ogg" />
+        <file name="Raid3.m4a" />
+        <file name="Raid3.ogg" />
+        <file name="Rapid2.m4a" />
+        <file name="Rapid2.ogg" />
+        <file name="Sakuya3.m4a" />
+        <file name="Sakuya3.ogg" />
+    </music-folder>
+    <files-folder>
+        <file-folder name="Icons">
+            <file name="icon-16.png" />
+            <file name="icon-32.png" />
+            <file name="icon-114.png" />
+            <file name="icon-128.png" />
+            <file name="icon-256.png" />
+            <file name="loading-logo.png" />
+        </file-folder>
+        <file name="MusicList.json" />
+    </files-folder>
+</c2project>
